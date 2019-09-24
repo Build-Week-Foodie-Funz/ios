@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  FoodieFun
 //
-//  Created by Steven Leyva on 9/23/19.
-//  Copyright © 2019 Lambda School. All rights reserved.
+//  Created by William Chen on 9/23/19.
+//  Copyright © 2019 William Chen. All rights reserved.
 //
 
 import UIKit
