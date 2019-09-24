@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct Foodie: Codable {
+struct Restaurant: Codable {
     
 }
