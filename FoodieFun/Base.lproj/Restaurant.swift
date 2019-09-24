@@ -7,7 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
 struct Restaurant: Codable {
-    
+    var typeOfCuisine: String?
+    var location: String?
+    var hoursOfOperation: UInt
+    var overallRating: UInt?
+    var reviews: String?
+    var photos: UIImage?
 }
