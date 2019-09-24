@@ -10,7 +10,5 @@ import Foundation
 struct  UserLogin: Codable {
     let username: String?
     let password: String?
-    let userLocation: String?
-    let userEmail: String?
 }
 

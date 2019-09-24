@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+class FoodieController: Codable{
+    private let baseURL = URL(string: "https://sethnadu-foodie-bw.herokuapp.com/")
+    
+    
+}
