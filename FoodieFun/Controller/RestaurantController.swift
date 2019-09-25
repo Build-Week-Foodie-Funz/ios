@@ -128,5 +128,25 @@ class RestaurantController: Codable{
         restaurant.location = location
         restaurant.reviews = reviews
         restaurant.photos = photos
+        
+        do {
+            try CoreDataStack.shared.save()
+        } catch {
+            NSLog("Error updating core data: \(error)")
+        }
+        
+    }
+    
+    func delete(restaurant: Restaurant) {
+        
+       CoreDataStack.shared.mainContext.delete(restaurant)
+        
+        do {
+            try CoreDataStack.shared.save()
+        } catch {
+            NSLog("Error deleting core data: \(error)")
+        }
+       
+        
     }
 }

@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 
 extension Restaurant {
+
     convenience init(name: String, location: String, hoursOfOperation: Int64, overallRating: Int64, photos: URL, reviews: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         
         self.init(context: context)
