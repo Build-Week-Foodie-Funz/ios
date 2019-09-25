@@ -2,15 +2,14 @@
 //  User.swift
 //  FoodieFun
 //
-//  Created by William Chen on 9/24/19.
+//  Created by Steven Leyva on 9/24/19.
 //  Copyright © 2019 William Chen. All rights reserved.
 //
 
 import Foundation
-import UIKit
-
-struct User: Codable, Equatable {
-    let name: String?
-    
+struct  User: Codable, Equatable {
+    let username: String?
+    let password: String?
+    let token: String?
 }
 

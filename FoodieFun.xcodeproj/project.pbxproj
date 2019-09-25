@@ -14,7 +14,6 @@
 		9E4D635823393DC70037308E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E4D635623393DC70037308E /* LaunchScreen.storyboard */; };
 		9E4D6360233945D60037308E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D635F233945D60037308E /* LoginViewController.swift */; };
 		9E4D6366233984E10037308E /* AddRestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D6365233984E10037308E /* AddRestaurantViewController.swift */; };
-		9EF5E2AE233AA87900438972 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF5E2AD233AA87900438972 /* User.swift */; };
 		9EF5E2B2233BC46700438972 /* RestaurantCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF5E2B1233BC46700438972 /* RestaurantCollectionViewController.swift */; };
 		9EF5E2B5233BD04600438972 /* Restaurant.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EF5E2B3233BD04600438972 /* Restaurant.xcdatamodeld */; };
 		9EF5E2B7233BE1E900438972 /* Restaurant+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF5E2B6233BE1E900438972 /* Restaurant+Convenience.swift */; };
@@ -22,7 +21,7 @@
 		E88B7F53233C1E2A00D8CBD4 /* RestaurantCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88B7F52233C1E2A00D8CBD4 /* RestaurantCollectionViewCell.swift */; };
 		E8A81AD3233A9E6F00C0D8B7 /* RestaurantRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A81AD1233A9E6F00C0D8B7 /* RestaurantRepresentation.swift */; };
 		E8A81AD5233AA02C00C0D8B7 /* RestaurantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A81AD4233AA02C00C0D8B7 /* RestaurantController.swift */; };
-		E8A81ADA233AA13600C0D8B7 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A81AD9233AA13600C0D8B7 /* UserLogin.swift */; };
+		E8A81ADA233AA13600C0D8B7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A81AD9233AA13600C0D8B7 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +34,6 @@
 		9E4D635923393DC70037308E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E4D635F233945D60037308E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9E4D6365233984E10037308E /* AddRestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRestaurantViewController.swift; sourceTree = "<group>"; };
-		9EF5E2AD233AA87900438972 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9EF5E2B1233BC46700438972 /* RestaurantCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCollectionViewController.swift; sourceTree = "<group>"; };
 		9EF5E2B4233BD04600438972 /* Restaurant.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Restaurant.xcdatamodel; sourceTree = "<group>"; };
 		9EF5E2B6233BE1E900438972 /* Restaurant+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Restaurant+Convenience.swift"; sourceTree = "<group>"; };
@@ -46,7 +44,7 @@
 		E8A81AD0233A90BA00C0D8B7 /* zrnic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = zrnic.ttf; sourceTree = "<group>"; };
 		E8A81AD2233A9E6F00C0D8B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Base; path = FoodieFun/Base.lproj/RestaurantRepresentation.swift; sourceTree = SOURCE_ROOT; };
 		E8A81AD4233AA02C00C0D8B7 /* RestaurantController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantController.swift; sourceTree = "<group>"; };
-		E8A81AD9233AA13600C0D8B7 /* UserLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
+		E8A81AD9233AA13600C0D8B7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,8 +127,7 @@
 				9EF5E2B8233BE30E00438972 /* CoreDataStack.swift */,
 				9EF5E2B3233BD04600438972 /* Restaurant.xcdatamodeld */,
 				9EF5E2B6233BE1E900438972 /* Restaurant+Convenience.swift */,
-				E8A81AD9233AA13600C0D8B7 /* UserLogin.swift */,
-				9EF5E2AD233AA87900438972 /* User.swift */,
+				E8A81AD9233AA13600C0D8B7 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -220,9 +217,8 @@
 				9EF5E2B9233BE30E00438972 /* CoreDataStack.swift in Sources */,
 				E88B7F53233C1E2A00D8CBD4 /* RestaurantCollectionViewCell.swift in Sources */,
 				9E4D635023393DC40037308E /* ViewController.swift in Sources */,
-				E8A81ADA233AA13600C0D8B7 /* UserLogin.swift in Sources */,
+				E8A81ADA233AA13600C0D8B7 /* User.swift in Sources */,
 				9EF5E2B7233BE1E900438972 /* Restaurant+Convenience.swift in Sources */,
-				9EF5E2AE233AA87900438972 /* User.swift in Sources */,
 				E8A81AD5233AA02C00C0D8B7 /* RestaurantController.swift in Sources */,
 				9E4D634E23393DC40037308E /* AppDelegate.swift in Sources */,
 				9E4D6366233984E10037308E /* AddRestaurantViewController.swift in Sources */,

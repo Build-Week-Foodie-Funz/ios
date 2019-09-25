@@ -30,7 +30,7 @@ class RestaurantController: Codable{
     
     private let baseURL = URL(string: "https://sethnadu-foodie-bw.herokuapp.com/")!
     
-    var userLogin: UserLogin?
+    var user: User?
     
     func signUp(with user: User, completion: @escaping (NetworkingError) -> Void) {
         
@@ -96,8 +96,8 @@ class RestaurantController: Codable{
             }
             
             do {
-                let userLogin = try JSONDecoder().decode(UserLogin.self, from: data)
-                self.userLogin = userLogin
+                let userLogin = try JSONDecoder().decode(User.self, from: data)
+                self.user = userLogin
             } catch {
                 completion(.noDecode)
                 return
@@ -153,7 +153,7 @@ class RestaurantController: Codable{
 
 extension RestaurantController {
     func fetchSessionsFromServer(classId: Int64, completion: @escaping () -> Void = {}) {
-        guard let token = currentUser?.token else { return }
+        guard let token = user?.token else { return }
         let requestURL = baseURL.appendingPathComponent("api/classes/ \(classId)/sessions")
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.get.rawValue
@@ -172,8 +172,6 @@ extension RestaurantController {
             do {
                 let decoder = JSONDecoder()
                 let dateformatter = DateFormatter()
-                dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-                decoder.dateDecodingStrategy = .formatted(dateformatter)
                 let sessionRepresentations = try decoder.decode([SessionRepresentation].self, from: data)
                 
                 // loop through the course representations
