@@ -14,20 +14,22 @@ struct Restaurant: Codable {
     var location: String?
     var hoursOfOperation: UInt
     var overallRating: UInt?
-    var reviews: Review?
+    var reviews: [Review]?
     var photos: URL?
 }
 
 struct Review: Codable{
     let cuisineType: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case cuisineType = "cuisinetype"
+        case menuItem = "menuitemname"
+        case photoMenu = "photomenu"
+        case itemPrice = "itemprice"
+        case itemRating = "itemrating"
+        case review = "shortreview"
+    }
 }
-enum CodingKeys: String, CodingKey {
-    case cuisineType = "cuisinetype"
-    case menuItem = "menuitemname"
-    case photoMenu = "photomenu"
-    case itemPrice = "itemprice"
-    case itemRating = "itemrating"
-    case review = "shortreview"
-}
+
 
 

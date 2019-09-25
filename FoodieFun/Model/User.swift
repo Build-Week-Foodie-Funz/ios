@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 
 struct User: Codable, Equatable {
-    let id: Int?
     let name: String?
-    let token: String?
+    
 }
 

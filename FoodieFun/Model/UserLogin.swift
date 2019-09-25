@@ -10,5 +10,6 @@ import Foundation
 struct  UserLogin: Codable, Equatable {
     let username: String?
     let password: String?
+    let token: String?
 }
 
