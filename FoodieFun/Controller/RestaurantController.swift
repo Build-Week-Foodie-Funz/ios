@@ -26,7 +26,7 @@ enum NetworkingError: Error {
     
 }
 
-class FoodieController: Codable{
+class RestaurantController: Codable{
     
     private let baseURL = URL(string: "https://sethnadu-foodie-bw.herokuapp.com/")!
     
