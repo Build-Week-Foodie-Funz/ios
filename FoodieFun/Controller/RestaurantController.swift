@@ -172,11 +172,11 @@ extension RestaurantController {
             do {
                 let decoder = JSONDecoder()
                 let dateformatter = DateFormatter()
-                let sessionRepresentations = try decoder.decode([SessionRepresentation].self, from: data)
+                //let sessionRepresentations = try decoder.decode([SessionRepresentation].self, from: data)
                 
                 // loop through the course representations
                 let moc = CoreDataStack.shared.container.newBackgroundContext()
-                self.updatePersistentStore(with: sessionRepresentations, context: moc)
+               // self.updatePersistentStore(with: sessionRepresentations, context: moc)
             }catch {
                 NSLog("Error decoding: \(error)")
             }

@@ -7,10 +7,34 @@
 //
 
 import UIKit
+import CoreData
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "RestaurantCell"
 
 class RestaurantCollectionViewController: UICollectionViewController {
+    
+    let restuarantController = RestaurantController()
+    
+    lazy var fetchRequestController: NSFetchedResultsController<Restaurant> = {
+        let fetchRequest: NSFetchRequest<Restaurant> = Restaurant.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "<#T##String?#>", ascending: true)]
+        
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                             managedObjectContext: CoreDataStack.shared.mainContext,
+                                             sectionNameKeyPath: "<#T##String?#>",
+                                             cacheName: nil)
+        
+        frc.delegate = self as? NSFetchedResultsControllerDelegate
+        
+        do {
+            try frc.performFetch()
+        } catch {
+            fatalError("Error perfoming fetch for frc: \(error)")
+        }
+        
+        return frc
+
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +47,16 @@ class RestaurantCollectionViewController: UICollectionViewController {
 
         // Do any additional setup after loading the view.
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+            collectionView.reloadData()
+    }
+    
+    @IBAction func addRestaurantTapped(_ sender: Any) {
+        
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -38,19 +71,20 @@ class RestaurantCollectionViewController: UICollectionViewController {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return fetchRequestController.sections?.count ?? 0
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return fetchRequestController.sections?[section].numberOfObjects ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as?
+        RestaurantCollectionViewCell else { return UICollectionViewCell() }
     
-        // Configure the cell
+        let restuarant = fetchRequestController.object(at: indexPath)
     
         return cell
     }

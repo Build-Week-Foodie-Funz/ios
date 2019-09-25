@@ -119,6 +119,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" image="plus-circle-solid2"/>
                                     <connections>
+                                        <action selector="addRestaurantTapped:" destination="VGX-Lz-Y4g" eventType="touchUpInside" id="uCw-rC-EYU"/>
                                         <segue destination="D5D-Z7-hQr" kind="show" id="n0b-gG-4Dw"/>
                                     </connections>
                                 </button>
@@ -143,7 +144,7 @@
                                                     <rect key="frame" x="39" y="202" width="37" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="ChineseRocksRg-Regular" family="Chinese Rocks" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="deviceWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
