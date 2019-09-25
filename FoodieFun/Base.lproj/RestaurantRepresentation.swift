@@ -16,10 +16,13 @@ struct RestaurantRepresentation: Codable {
     var hoursOfOperation: Int64?
     var overallRating: Int64?
     var reviews: [Review]?
-    var photos: URL?
+    var photo: [Photo]?
     
     enum CodingKeys: String, CodingKey {
         case name = "restname"
+        case location = "restlocation"
+        case hoursOfOperation = "resthours"
+        case overallRating = "restrating"
     }
 }
 
@@ -41,5 +44,8 @@ struct Review: Equatable, Codable {
     }
 }
 
+struct Photo: Equatable, Codable{
+    var photo: URL?
+}
 
 
