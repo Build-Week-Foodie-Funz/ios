@@ -106,7 +106,27 @@ class FoodieController: Codable{
         }.resume()
     }
     
-    @discardableResult func createFoodie(with name: String, location: String, reviews:[Review] , photos: URL) {
+    @discardableResult func createFoodie(with name: String, location: String, reviews: String, photos: URL, hoursOfOperation: Int64, overallRating: Int64) -> Restaurant {
+        
+        let resturant = Restaurant(name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, photos: photos, reviews: reviews)
+        
+        do {
+            try CoreDataStack.shared.save()
+        } catch {
+            NSLog("Error saving to core data: \(error)")
+        }
+        
+        // Implement put later
+        //put(resturant: resturant)
+        
+        return resturant
     }
     
+    func updateFoodie(restaurant: Restaurant, with name: String, location: String, reviews: String, photos: URL) {
+        
+        restaurant.name = name
+        restaurant.location = location
+        restaurant.reviews = reviews
+        restaurant.photos = photos
+    }
 }
