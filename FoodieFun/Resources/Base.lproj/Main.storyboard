@@ -96,10 +96,10 @@
             </objects>
             <point key="canvasLocation" x="2320" y="814"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Restaurant Collection View Controller-->
         <scene sceneID="Kty-Ut-hM5">
             <objects>
-                <collectionViewController id="VGX-Lz-Y4g" sceneMemberID="viewController">
+                <collectionViewController id="VGX-Lz-Y4g" customClass="RestaurantCollectionViewController" customModule="FoodieFun" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="utv-dk-sEg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -126,7 +126,7 @@
                             <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hJB-xB-wwh">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ResturantCell" id="hJB-xB-wwh" customClass="RestaurantCollectionViewCell" customModule="FoodieFun" customModuleProvider="target">
                                 <rect key="frame" x="15.5" y="64" width="383" height="255"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -163,6 +163,10 @@
                                     <constraint firstItem="c8m-wr-Dh9" firstAttribute="top" secondItem="hJB-xB-wwh" secondAttribute="top" id="rd6-0V-yx5"/>
                                     <constraint firstAttribute="trailing" secondItem="c8m-wr-Dh9" secondAttribute="trailing" id="wyg-Ib-i87"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="infoLabel" destination="WqE-64-I2s" id="idB-zG-Pia"/>
+                                    <outlet property="restaurantImageView" destination="c8m-wr-Dh9" id="lYX-4V-G14"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
