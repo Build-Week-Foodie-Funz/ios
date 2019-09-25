@@ -17,7 +17,7 @@ struct Restaurant: Codable {
     var reviews: [Review]?
     var photos: URL?
     
-    enum CodingKeys: String, CodingKeys {
+    enum CodingKeys: String, CodingKey {
         case name = "restname"
     }
 }
@@ -26,7 +26,7 @@ struct Restaurant: Codable {
 struct Review: Codable{
     let cuisineType: String?
     
-    enum CodingKeys: String, CodingKeys {
+    enum CodingKeys: String, CodingKey {
         case cuisineType = "cuisinetype"
         case menuItem = "menuitemname"
         case photoMenu = "photomenu"
