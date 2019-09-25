@@ -12,16 +12,21 @@ import UIKit
 struct Restaurant: Codable {
     var name: String?
     var location: String?
-    var hoursOfOperation: UInt
-    var overallRating: UInt?
+    var hoursOfOperation: Int64?
+    var overallRating: Int64?
     var reviews: [Review]?
     var photos: URL?
+    
+    enum CodingKeys: String, CodingKeys {
+        case name = "restname"
+    }
 }
+
 
 struct Review: Codable{
     let cuisineType: String?
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKeys {
         case cuisineType = "cuisinetype"
         case menuItem = "menuitemname"
         case photoMenu = "photomenu"
