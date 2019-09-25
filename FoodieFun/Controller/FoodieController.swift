@@ -104,8 +104,9 @@ class FoodieController: Codable{
             }
             completion(nil)
         }.resume()
-        
-        
+    }
+    
+    @discardableResult func createFoodie(with name: String, location: String, reviews:[Review] , photos: URL) {
     }
     
 }

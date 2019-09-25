@@ -23,7 +23,7 @@ struct Restaurant: Codable {
 }
 
 
-struct Review: Codable{
+struct Review: Codable {
     let cuisineType: String?
     
     enum CodingKeys: String, CodingKeys {
