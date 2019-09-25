@@ -150,3 +150,40 @@ class RestaurantController: Codable{
         
     }
 }
+
+extension RestaurantController {
+    func fetchSessionsFromServer(classId: Int64, completion: @escaping () -> Void = {}) {
+        guard let token = currentUser?.token else { return }
+        let requestURL = baseURL.appendingPathComponent("api/classes/ \(classId)/sessions")
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HTTPMethod.get.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(token, forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            if let error = error {
+                NSLog("Error fetching sessions from server: \(error)")
+                return
+            }
+            guard let data = data else {
+                NSLog("No data returned from data task")
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let dateformatter = DateFormatter()
+                dateformatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                decoder.dateDecodingStrategy = .formatted(dateformatter)
+                let sessionRepresentations = try decoder.decode([SessionRepresentation].self, from: data)
+                
+                // loop through the course representations
+                let moc = CoreDataStack.shared.container.newBackgroundContext()
+                self.updatePersistentStore(with: sessionRepresentations, context: moc)
+            }catch {
+                NSLog("Error decoding: \(error)")
+            }
+            completion()
+            }.resume()
+    }
+    
+}
