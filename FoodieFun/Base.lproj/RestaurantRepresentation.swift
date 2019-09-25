@@ -9,7 +9,8 @@
 import Foundation
 import UIKit
 
-struct Restaurant: Codable {
+struct RestaurantRepresentation: Codable {
+    
     var name: String?
     var location: String?
     var hoursOfOperation: Int64?
@@ -22,9 +23,13 @@ struct Restaurant: Codable {
     }
 }
 
-
-struct Review: Codable{
-    let cuisineType: String?
+struct Review: Equatable, Codable {
+    var cuisineType: String?
+    var menuItem: String?
+    var photoMenu: String?
+    var itemPrice: Int?
+    var itemRating: String?
+    var review: String?
     
     enum CodingKeys: String, CodingKey {
         case cuisineType = "cuisinetype"
