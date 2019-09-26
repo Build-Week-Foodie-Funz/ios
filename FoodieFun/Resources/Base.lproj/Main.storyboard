@@ -47,15 +47,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Foodie Fun" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EsI-7j-gaN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Foodie Fun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EsI-7j-gaN">
                                 <rect key="frame" x="111" y="521" width="193" height="50"/>
                                 <fontDescription key="fontDescription" name="Zrnic" family="Zrnic" pointSize="48"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeR-TB-tsL">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeR-TB-tsL">
                                 <rect key="frame" x="119" y="729" width="177" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="egL-XB-ELM"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Zrnic" family="Zrnic" pointSize="20"/>
                                 <state key="normal" title="Login" backgroundImage="Rectangle green">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -67,10 +69,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="qeR-TB-tsL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="119" id="7fd-xs-WPA"/>
+                            <constraint firstItem="EsI-7j-gaN" firstAttribute="top" secondItem="0Uw-eR-NRK" secondAttribute="bottom" constant="40" id="CIQ-p3-Rdy"/>
                             <constraint firstAttribute="bottom" secondItem="bsf-3o-b5k" secondAttribute="bottom" constant="216" id="Eal-bj-Mvu"/>
                             <constraint firstItem="zw6-aP-9iP" firstAttribute="top" secondItem="0Uw-eR-NRK" secondAttribute="bottom" constant="26" id="EuW-YY-8W2"/>
                             <constraint firstItem="bsf-3o-b5k" firstAttribute="trailing" secondItem="kqM-jb-ZgR" secondAttribute="trailing" id="Pt7-mX-vZk"/>
                             <constraint firstItem="kqM-jb-ZgR" firstAttribute="top" secondItem="bsf-3o-b5k" secondAttribute="bottom" constant="23" id="Pzn-or-3vP"/>
+                            <constraint firstItem="qeR-TB-tsL" firstAttribute="top" secondItem="kqM-jb-ZgR" secondAttribute="bottom" constant="32" id="SWs-0L-YVT"/>
                             <constraint firstItem="EsI-7j-gaN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="111" id="Ye6-LH-Xya"/>
                             <constraint firstItem="bsf-3o-b5k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="Z9G-cA-uyN"/>
                             <constraint firstItem="0Uw-eR-NRK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-29" id="ZsK-t6-LH0"/>
@@ -80,6 +85,7 @@
                             <constraint firstItem="bsf-3o-b5k" firstAttribute="centerX" secondItem="0Uw-eR-NRK" secondAttribute="centerX" id="j2n-Y0-Jvl"/>
                             <constraint firstItem="0Uw-eR-NRK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-24" id="lAC-wj-ESr"/>
                             <constraint firstItem="bsf-3o-b5k" firstAttribute="leading" secondItem="kqM-jb-ZgR" secondAttribute="leading" id="nm1-sm-lub"/>
+                            <constraint firstItem="EsI-7j-gaN" firstAttribute="centerX" secondItem="qeR-TB-tsL" secondAttribute="centerX" id="s1E-Dw-iSY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
