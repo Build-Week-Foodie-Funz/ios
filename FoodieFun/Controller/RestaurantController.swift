@@ -106,9 +106,9 @@ class RestaurantController: Codable{
             }.resume()
     }
     
-    @discardableResult func createFoodie(with name: String, location: String, reviews: [Review], photos: [Photo], hoursOfOperation: Int64, overallRating: Int64) -> Restaurant {
-        
-        let restaurant = Restaurant(name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, photos: photos, reviews: reviews)
+    func createRestaurant(with restaurant: RestaurantRepresentation, name: String, location: String, reviews: [Review], photos: [Photo], hoursOfOperation: Int64, overallRating: Int64, context: NSManagedObjectContext = CoreDataStack.shared.mainContext)  {
+        guard let id = restaurant.id  else { return }
+        let restaurant = Restaurant(
         
         do {
             try CoreDataStack.shared.save()
@@ -119,7 +119,7 @@ class RestaurantController: Codable{
         // Implement put later
         //put(resturant: resturant)
         
-        return restaurant
+
     }
     
     private func updatePersistentStore(with restaurantRepresentations: [RestaurantRepresentation], context: NSManagedObjectContext) {
@@ -179,12 +179,12 @@ class RestaurantController: Codable{
         }
         
         func postRestaurant(restaurant: Restaurant, completion: @escaping () -> Void = {}) {
-            guard let name = restaurant.name else {return}
+            guard let token = user?.token else {return}
                 let requestURL = baseURL.appendingPathComponent("user/restaurant/")
                var request = URLRequest(url: requestURL)
                request.httpMethod = HTTPMethod.post.rawValue
                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-               request.addValue(name, forHTTPHeaderField: "Authorization")
+               request.addValue(token, forHTTPHeaderField: "Authorization")
                let encoder = JSONEncoder()
             var restaurantRep = restaurant.restaurantRepresentation
                restaurantRep?.name = nil
@@ -207,7 +207,7 @@ class RestaurantController: Codable{
                        return
                    }
                    do {
-                       let restaurantNameArray = try JSONDecoder().decode([Int].self, from: data)
+                       let restaurantNameArray = try JSONDecoder().decode([String].self, from: data)
                        print(restaurantNameArray)
                        if let restaurantName = restaurantNameArray.first {
                            print(restaurantName)
@@ -220,6 +220,47 @@ class RestaurantController: Codable{
                }.resume()
            }
         
+        func postReview(reviewEntity: ReviewEntity, completion: @escaping () -> Void = {}) {
+            guard let token = user?.token else {return}
+             let requestURL = baseURL.appendingPathComponent("user/restaurant/")
+            var request = URLRequest(url: requestURL)
+            request.httpMethod = HTTPMethod.post.rawValue
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue(token, forHTTPHeaderField: "Authorization")
+            let encoder = JSONEncoder()
+            var reviewRep = reviewEntity.review
+            reviewRep = nil
+            do {
+                let reviewData = try encoder.encode(reviewRep)
+                request.httpBody = reviewData
+                
+            } catch {
+                NSLog("Error encoding session representation: \(error)")
+                completion()
+                return
+            }
+            
+            URLSession.shared.dataTask(with: request) { (data, _, error) in
+                if let error = error {
+                    NSLog("Error POSTing session representation to server: \(error)")
+                }
+                guard let data = data else {
+                    NSLog("no data")
+                    return
+                }
+                do {
+                    let reviewArray = try JSONDecoder().decode([String].self, from: data)
+                    print(reviewArray)
+                    if let reviews = reviewArray.first {
+                        print(reviews)
+                    }
+                } catch {
+                    NSLog("Error decoding when POSTing to server: \(error)")
+                    return
+                }
+                completion()
+            }.resume()
+        }
         func deleteRestaurant(restaurant: Restaurant) {
             
             CoreDataStack.shared.mainContext.delete(restaurant)
@@ -276,7 +317,7 @@ class RestaurantController: Codable{
         func createReview(with cuisineType: String, menuItem: String, photoMenu: String, itemPrice: Int64, itemRating: String, review: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
             
             context.performAndWait {
-                let review = Review(cuisineType: cuisineType, menuItem: menuItem, photoMenu: photoMenu, itemPrice: itemPrice, itemRating: itemRating, review: review)
+                let review = ReviewEntity(cuisineType: cuisineType, menuItem: menuItem, photoMenu: photoMenu, itemPrice: itemPrice, itemRating: itemRating, review: review, context: context)
                 
                 
                 do {
@@ -284,14 +325,14 @@ class RestaurantController: Codable{
                 } catch {
                       NSLog("Error saving context when creating new session: \(error)")
                 }
-//                post(review: review, completion: {
-//                               self.deleteReview(review: review, context: context)
-//                           })
-            }
-            
+                postReview(reviewEntity: review, completion:  {
+                     deleteReview(review: review)
+                })
+        
         }
         
         }
         
     }
 
+}

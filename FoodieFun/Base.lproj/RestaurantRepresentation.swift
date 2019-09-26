@@ -11,6 +11,7 @@ import UIKit
 
 struct RestaurantRepresentation: Codable {
     
+    var id: Int64?
     var name: String?
     var location: String?
     var hoursOfOperation: Int64?
@@ -19,6 +20,7 @@ struct RestaurantRepresentation: Codable {
     var photo: [Photo]?
     
     enum CodingKeys: String, CodingKey {
+        case id = "restid"
         case name = "restname"
         case location = "restlocation"
         case hoursOfOperation = "resthours"
@@ -27,6 +29,7 @@ struct RestaurantRepresentation: Codable {
 }
 
 struct Review: Equatable, Codable {
+    var reviewID: Int64?
     var cuisineType: String?
     var menuItem: String?
     var photoMenu: String?
@@ -35,6 +38,7 @@ struct Review: Equatable, Codable {
     var review: String?
     
     enum CodingKeys: String, CodingKey {
+        case reviewID = "reviewid"
         case cuisineType = "cuisinetype"
         case menuItem = "menuitemname"
         case photoMenu = "photomenu"

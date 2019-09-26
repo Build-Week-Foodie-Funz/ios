@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="PhotoEntity" representedClassName="PhotoEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="photo" optional="YES" attributeType="URI" syncable="YES"/>
+        <attribute name="photo" optional="YES" attributeType="URI"/>
     </entity>
     <entity name="Restaurant" representedClassName="Restaurant" syncable="YES" codeGenerationType="class">
-        <attribute name="hoursOfOperation" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="overallRating" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="photo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PhotoEntity" syncable="YES"/>
-        <relationship name="reviews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReviewEntity" inverseName="restaurant" inverseEntity="ReviewEntity" syncable="YES"/>
+        <attribute name="hoursOfOperation" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="location" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="overallRating" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="photo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PhotoEntity"/>
+        <relationship name="reviews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReviewEntity" inverseName="restaurant" inverseEntity="ReviewEntity"/>
     </entity>
     <entity name="ReviewEntity" representedClassName="ReviewEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="cuisineType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="itemPrice" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="itemRating" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="menuItem" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="photoMenu" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="review" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="restaurant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Restaurant" inverseName="reviews" inverseEntity="Restaurant" syncable="YES"/>
+        <attribute name="cuisineType" optional="YES" attributeType="String"/>
+        <attribute name="itemPrice" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="itemRating" optional="YES" attributeType="String"/>
+        <attribute name="menuItem" optional="YES" attributeType="String"/>
+        <attribute name="photoMenu" optional="YES" attributeType="String"/>
+        <attribute name="review" optional="YES" attributeType="String"/>
+        <relationship name="restaurant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Restaurant" inverseName="reviews" inverseEntity="Restaurant"/>
     </entity>
     <elements>
         <element name="PhotoEntity" positionX="191.609375" positionY="21.78515625" width="128" height="58"/>
-        <element name="Restaurant" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Restaurant" positionX="-63" positionY="-18" width="128" height="148"/>
         <element name="ReviewEntity" positionX="16.14453125" positionY="176.15625" width="128" height="148"/>
     </elements>
 </model>
