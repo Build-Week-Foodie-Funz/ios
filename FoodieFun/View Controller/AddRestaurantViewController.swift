@@ -19,6 +19,7 @@ class AddRestaurantViewController: UIViewController {
     @IBOutlet weak var ratingTextfield: UITextField!
     @IBOutlet weak var reviewTextfield: UITextView!
     
+    var restaurantController: RestaurantController?
     
     override func viewDidLoad() {
         super.viewDidLoad()

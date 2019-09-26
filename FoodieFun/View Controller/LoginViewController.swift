@@ -7,7 +7,9 @@
 //
 
 import UIKit
-
+protocol LoginDelegate {
+    func setController(restaurantController: RestaurantController)
+}
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var registerUsernameTextfield: UITextField!
@@ -17,7 +19,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameLoginTextfield: UITextField!
     @IBOutlet weak var passwordLoginTextfield: UITextField!
     
-    var restaurantController: RestaurantController?
+    var delegate: LoginDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
