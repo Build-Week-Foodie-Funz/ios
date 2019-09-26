@@ -17,11 +17,11 @@ class RestaurantCollectionViewController: UICollectionViewController {
     
     lazy var fetchRequestController: NSFetchedResultsController<Restaurant> = {
         let fetchRequest: NSFetchRequest<Restaurant> = Restaurant.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "<#T##String?#>", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "Restaurant", ascending: true)]
         
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                              managedObjectContext: CoreDataStack.shared.mainContext,
-                                             sectionNameKeyPath: "<#T##String?#>",
+                                             sectionNameKeyPath: "Restaurant",
                                              cacheName: nil)
         
         frc.delegate = self as? NSFetchedResultsControllerDelegate

@@ -178,7 +178,49 @@ class RestaurantController: Codable{
             
         }
         
-        func delete(restaurant: Restaurant) {
+        func post(restaurant: Restaurant, completion: @escaping () -> Void = {}) {
+            guard let name = restaurant.name else {return}
+                let requestURL = baseURL.appendingPathComponent("user/restaurant/")
+               var request = URLRequest(url: requestURL)
+               request.httpMethod = HTTPMethod.post.rawValue
+               request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+               request.addValue(name, forHTTPHeaderField: "Authorization")
+               let encoder = JSONEncoder()
+            var restaurantRep = restaurant.restaurantRepresentation
+               restaurantRep?.name = nil
+               do {
+                   let restaurantData = try encoder.encode(restaurantRep)
+                   request.httpBody = restaurantData
+                   
+               } catch {
+                   NSLog("Error encoding session representation: \(error)")
+                   completion()
+                   return
+               }
+               
+               URLSession.shared.dataTask(with: request) { (data, _, error) in
+                   if let error = error {
+                       NSLog("Error POSTing session representation to server: \(error)")
+                   }
+                   guard let data = data else {
+                       NSLog("no data")
+                       return
+                   }
+                   do {
+                       let restaurantNameArray = try JSONDecoder().decode([Int].self, from: data)
+                       print(restaurantNameArray)
+                       if let restaurantName = restaurantNameArray.first {
+                           print(restaurantName)
+                       }
+                   } catch {
+                       NSLog("Error decoding when POSTing to server: \(error)")
+                       return
+                   }
+                   completion()
+               }.resume()
+           }
+        
+        func deleteRestaurant(restaurant: Restaurant) {
             
             CoreDataStack.shared.mainContext.delete(restaurant)
             
@@ -187,10 +229,22 @@ class RestaurantController: Codable{
             } catch {
                 NSLog("Error deleting core data: \(error)")
             }
+        }
+        
+        func deleteReview(review: ReviewEntity){
+            CoreDataStack.shared.mainContext.delete(review)
             
-            func fetchRestaurantsFromServer(classId: Int64, completion: @escaping () -> Void = {}) {
+            do {
+                try CoreDataStack.shared.save()
+            } catch {
+                NSLog("Error deleting core data: \(error)")
+            }
+            
+        }
+        
+        func fetchRestaurantsFromServer(classId: Int64, completion: @escaping () -> Void = {}) {
                 guard let token = user?.token else { return }
-                let requestURL = baseURL.appendingPathComponent("user") .appendingPathComponent("restaurant")
+                let requestURL = baseURL.appendingPathComponent("user/restaurant")
                 var request = URLRequest(url: requestURL)
                 request.httpMethod = HTTPMethod.get.rawValue
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -218,8 +272,26 @@ class RestaurantController: Codable{
                     completion()
                     }.resume()
             }
+        //create review
+        func createReview(with cuisineType: String, menuItem: String, photoMenu: String, itemPrice: Int64, itemRating: String, review: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+            
+            context.performAndWait {
+                let review = Review(cuisineType: cuisineType, menuItem: menuItem, photoMenu: photoMenu, itemPrice: itemPrice, itemRating: itemRating, review: review)
+                
+                
+                do {
+                    try CoreDataStack.shared.save(context: context)
+                } catch {
+                      NSLog("Error saving context when creating new session: \(error)")
+                }
+//                post(review: review, completion: {
+//                               self.deleteReview(review: review, context: context)
+//                           })
+            }
             
         }
         
+        }
+        
     }
-}
+
