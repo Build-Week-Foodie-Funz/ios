@@ -19,6 +19,9 @@
 		9EF5E2B7233BE1E900438972 /* Restaurant+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF5E2B6233BE1E900438972 /* Restaurant+Convenience.swift */; };
 		9EF5E2B9233BE30E00438972 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF5E2B8233BE30E00438972 /* CoreDataStack.swift */; };
 		E88B7F53233C1E2A00D8CBD4 /* RestaurantCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88B7F52233C1E2A00D8CBD4 /* RestaurantCollectionViewCell.swift */; };
+		E88B7F55233D3E1800D8CBD4 /* chinese rocks rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E8A81ACE233A909C00C0D8B7 /* chinese rocks rg.ttf */; };
+		E88B7F56233D3E1B00D8CBD4 /* vds-thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E8A81ACF233A90B400C0D8B7 /* vds-thin.ttf */; };
+		E88B7F57233D3E1E00D8CBD4 /* zrnic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E8A81AD0233A90BA00C0D8B7 /* zrnic.ttf */; };
 		E8A81AD3233A9E6F00C0D8B7 /* RestaurantRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A81AD1233A9E6F00C0D8B7 /* RestaurantRepresentation.swift */; };
 		E8A81AD5233AA02C00C0D8B7 /* RestaurantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A81AD4233AA02C00C0D8B7 /* RestaurantController.swift */; };
 		E8A81ADA233AA13600C0D8B7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A81AD9233AA13600C0D8B7 /* User.swift */; };
@@ -198,9 +201,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E88B7F55233D3E1800D8CBD4 /* chinese rocks rg.ttf in Resources */,
 				9E4D635823393DC70037308E /* LaunchScreen.storyboard in Resources */,
 				9E4D635523393DC70037308E /* Assets.xcassets in Resources */,
+				E88B7F57233D3E1E00D8CBD4 /* zrnic.ttf in Resources */,
 				9E4D635323393DC40037308E /* Main.storyboard in Resources */,
+				E88B7F56233D3E1B00D8CBD4 /* vds-thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
