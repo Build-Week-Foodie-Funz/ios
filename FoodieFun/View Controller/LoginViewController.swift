@@ -10,24 +10,24 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet weak var usernameTextfield: UITextField!
-    @IBOutlet weak var passwordTextfield: UITextField!
+    @IBOutlet weak var registerUsernameTextfield: UITextField!
+    @IBOutlet weak var registerPasswordTextfield: UITextField!
+    @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var locationTextfield: UITextField!
-    @IBOutlet weak var registerLoginButton: UIButton!
+    @IBOutlet weak var usernameLoginTextfield: UITextField!
+    @IBOutlet weak var passwordLoginTextfield: UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-    
     @IBAction func registerButtonTapped(_ sender: Any) {
         
     }
+    
     @IBAction func loginButtonTapped(_ sender: Any) {
-        
-    }
-    @IBAction func registerLoginButtonTapped(_ sender: Any) {
         
     }
     
