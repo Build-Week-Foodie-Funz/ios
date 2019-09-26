@@ -11,9 +11,10 @@ import CoreData
 
 extension Restaurant {
 
-    convenience init(name: String, location: String, hoursOfOperation: Int64, overallRating: Int64, photos: [Photo], reviews: [Review], context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+    convenience init(id: Int64, name: String, location: String, hoursOfOperation: Int64, overallRating: Int64, photos: [Photo], reviews: [Review], context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         
         self.init(context: context)
+        self.id = id
         self.name = name
         self.location = location
         self.hoursOfOperation = hoursOfOperation
@@ -24,7 +25,8 @@ extension Restaurant {
     
     @discardableResult convenience init?(restaurantRepresentation: RestaurantRepresentation, context: NSManagedObjectContext) {
         
-        guard let name = restaurantRepresentation.name,
+        guard let id = restaurantRepresentation.id,
+            let name = restaurantRepresentation.name,
             let location = restaurantRepresentation.location,
             let hoursOfOperation = restaurantRepresentation.hoursOfOperation,
             let overallRating = restaurantRepresentation.overallRating,
@@ -32,7 +34,7 @@ extension Restaurant {
             let photos = restaurantRepresentation.photo
             else { return nil }
         
-        self.init(name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, photos: photos, reviews: reviews)
+        self.init(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, photos: photos, reviews: reviews)
     }
     
     var restaurantRepresentation: RestaurantRepresentation? {
@@ -40,7 +42,7 @@ extension Restaurant {
             let photo = photo else {return nil}
         let reviewArray = Array(reviews)
         let photoArray = Array(photo)
-        return RestaurantRepresentation(name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, reviews: reviewArray as? [Review], photo: photoArray as? [Photo])
+        return RestaurantRepresentation(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, reviews: reviewArray as? [Review], photo: photoArray as? [Photo])
     }
     
 }
@@ -54,9 +56,10 @@ extension PhotoEntity {
 }
 
 extension ReviewEntity {
-    convenience init (cuisineType: String, menuItem: String, photoMenu: String, itemPrice: Int64, itemRating: String, review: String, context: NSManagedObjectContext){
+    convenience init (reviewId: Int64, cuisineType: String, menuItem: String, photoMenu: String, itemPrice: Int64, itemRating: String, review: String, context: NSManagedObjectContext){
         
         self.init(context: context)
+        self.reviewId = reviewId
         self.cuisineType = cuisineType
         self.menuItem = menuItem
         self.itemRating = itemRating

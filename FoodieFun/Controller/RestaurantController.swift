@@ -61,7 +61,7 @@ class RestaurantController: Codable{
             //TODO: had an error look at later if something wrong
             
             completion(.success)
-            }.resume()
+        }.resume()
     }
     
     func login(with user: User, completion: @escaping (NetworkingError?) -> Void) {
@@ -103,12 +103,12 @@ class RestaurantController: Codable{
                 return
             }
             completion(nil)
-            }.resume()
+        }.resume()
     }
     
-    func createRestaurant(with restaurant: RestaurantRepresentation, name: String, location: String, reviews: [Review], photos: [Photo], hoursOfOperation: Int64, overallRating: Int64, context: NSManagedObjectContext = CoreDataStack.shared.mainContext)  {
+    func createRestaurant(with id: Int64, restaurant: RestaurantRepresentation, name: String, location: String, reviews: [Review], photos: [Photo], hoursOfOperation: Int64, overallRating: Int64, context: NSManagedObjectContext = CoreDataStack.shared.mainContext)  {
         guard let id = restaurant.id  else { return }
-        let restaurant = Restaurant(
+        let restaurant = Restaurant(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, photos: photos, reviews: reviews)
         
         do {
             try CoreDataStack.shared.save()
@@ -116,10 +116,14 @@ class RestaurantController: Codable{
             NSLog("Error saving to core data: \(error)")
         }
         
+<<<<<<< HEAD
          //Implement put later
 //        put(resturant: resturant)
+=======
         
-
+        // Implement put later
+>>>>>>> d3c29a4eac1a0ff39ce1f05f083fa59d86384464
+        
     }
     
     private func updatePersistentStore(with restaurantRepresentations: [RestaurantRepresentation], context: NSManagedObjectContext) {
@@ -167,8 +171,8 @@ class RestaurantController: Codable{
             
             restaurant.name = restaurantRep.name
             restaurant.location = restaurantRep.location
-//            restaurant.photo = restaurantRep.photo
-//            restaurant.reviews = restaurantRep.reviews
+            //            restaurant.photo = restaurantRep.photo
+            //            restaurant.reviews = restaurantRep.reviews
             
             do {
                 try CoreDataStack.shared.save()
@@ -180,49 +184,49 @@ class RestaurantController: Codable{
         
         func postRestaurant(restaurant: Restaurant, completion: @escaping () -> Void = {}) {
             guard let token = user?.token else {return}
-                let requestURL = baseURL.appendingPathComponent("user/restaurant/")
-               var request = URLRequest(url: requestURL)
-               request.httpMethod = HTTPMethod.post.rawValue
-               request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-               request.addValue(token, forHTTPHeaderField: "Authorization")
-               let encoder = JSONEncoder()
+            let requestURL = baseURL.appendingPathComponent("user/restaurant/")
+            var request = URLRequest(url: requestURL)
+            request.httpMethod = HTTPMethod.post.rawValue
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue(token, forHTTPHeaderField: "Authorization")
+            let encoder = JSONEncoder()
             var restaurantRep = restaurant.restaurantRepresentation
-               restaurantRep?.name = nil
-               do {
-                   let restaurantData = try encoder.encode(restaurantRep)
-                   request.httpBody = restaurantData
-                   
-               } catch {
-                   NSLog("Error encoding session representation: \(error)")
-                   completion()
-                   return
-               }
-               
-               URLSession.shared.dataTask(with: request) { (data, _, error) in
-                   if let error = error {
-                       NSLog("Error POSTing session representation to server: \(error)")
-                   }
-                   guard let data = data else {
-                       NSLog("no data")
-                       return
-                   }
-                   do {
-                       let restaurantNameArray = try JSONDecoder().decode([String].self, from: data)
-                       print(restaurantNameArray)
-                       if let restaurantName = restaurantNameArray.first {
-                           print(restaurantName)
-                       }
-                   } catch {
-                       NSLog("Error decoding when POSTing to server: \(error)")
-                       return
-                   }
-                   completion()
-               }.resume()
-           }
+            restaurantRep?.name = nil
+            do {
+                let restaurantData = try encoder.encode(restaurantRep)
+                request.httpBody = restaurantData
+                
+            } catch {
+                NSLog("Error encoding session representation: \(error)")
+                completion()
+                return
+            }
+            
+            URLSession.shared.dataTask(with: request) { (data, _, error) in
+                if let error = error {
+                    NSLog("Error POSTing session representation to server: \(error)")
+                }
+                guard let data = data else {
+                    NSLog("no data")
+                    return
+                }
+                do {
+                    let restaurantNameArray = try JSONDecoder().decode([String].self, from: data)
+                    print(restaurantNameArray)
+                    if let restaurantName = restaurantNameArray.first {
+                        print(restaurantName)
+                    }
+                } catch {
+                    NSLog("Error decoding when POSTing to server: \(error)")
+                    return
+                }
+                completion()
+            }.resume()
+        }
         
         func postReview(reviewEntity: ReviewEntity, completion: @escaping () -> Void = {}) {
             guard let token = user?.token else {return}
-             let requestURL = baseURL.appendingPathComponent("user/restaurant/")
+            let requestURL = baseURL.appendingPathComponent("user/restaurant/")
             var request = URLRequest(url: requestURL)
             request.httpMethod = HTTPMethod.post.rawValue
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -284,55 +288,55 @@ class RestaurantController: Codable{
         }
         
         func fetchRestaurantsFromServer(classId: Int64, completion: @escaping () -> Void = {}) {
-                guard let token = user?.token else { return }
-                let requestURL = baseURL.appendingPathComponent("user/restaurant")
-                var request = URLRequest(url: requestURL)
-                request.httpMethod = HTTPMethod.get.rawValue
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue(token, forHTTPHeaderField: "Authorization")
-                
-                URLSession.shared.dataTask(with: request) { (data, _, error) in
-                    if let error = error {
-                        NSLog("Error fetching sessions from server: \(error)")
-                        return
-                    }
-                    guard let data = data else {
-                        NSLog("No data returned from data task")
-                        return
-                    }
-                    do {
-                        let decoder = JSONDecoder()
-                        let restaurantRepresentation  = try decoder.decode([RestaurantRepresentation].self, from: data)
-                        
-                        // loop through the course representations
-                        let moc = CoreDataStack.shared.container.newBackgroundContext()
-                        self.updatePersistentStore(with: restaurantRepresentation, context: moc)
-                    }catch {
-                        NSLog("Error decoding: \(error)")
-                    }
-                    completion()
-                    }.resume()
-            }
+            guard let token = user?.token else { return }
+            let requestURL = baseURL.appendingPathComponent("user/restaurant")
+            var request = URLRequest(url: requestURL)
+            request.httpMethod = HTTPMethod.get.rawValue
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue(token, forHTTPHeaderField: "Authorization")
+            
+            URLSession.shared.dataTask(with: request) { (data, _, error) in
+                if let error = error {
+                    NSLog("Error fetching sessions from server: \(error)")
+                    return
+                }
+                guard let data = data else {
+                    NSLog("No data returned from data task")
+                    return
+                }
+                do {
+                    let decoder = JSONDecoder()
+                    let restaurantRepresentation  = try decoder.decode([RestaurantRepresentation].self, from: data)
+                    
+                    // loop through the course representations
+                    let moc = CoreDataStack.shared.container.newBackgroundContext()
+                    self.updatePersistentStore(with: restaurantRepresentation, context: moc)
+                }catch {
+                    NSLog("Error decoding: \(error)")
+                }
+                completion()
+            }.resume()
+        }
         //create review
-        func createReview(with cuisineType: String, menuItem: String, photoMenu: String, itemPrice: Int64, itemRating: String, review: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        func createReview(with reviewId: Int64, cuisineType: String, menuItem: String, photoMenu: String, itemPrice: Int64, itemRating: String, review: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
             
             context.performAndWait {
-                let review = ReviewEntity(cuisineType: cuisineType, menuItem: menuItem, photoMenu: photoMenu, itemPrice: itemPrice, itemRating: itemRating, review: review, context: context)
+                let review = ReviewEntity(reviewId: reviewId, cuisineType: cuisineType, menuItem: menuItem, photoMenu: photoMenu, itemPrice: itemPrice, itemRating: itemRating, review: review, context: context)
                 
                 
                 do {
                     try CoreDataStack.shared.save(context: context)
                 } catch {
-                      NSLog("Error saving context when creating new session: \(error)")
+                    NSLog("Error saving context when creating new session: \(error)")
                 }
                 postReview(reviewEntity: review, completion:  {
-                     deleteReview(review: review)
+                    deleteReview(review: review)
                 })
-        
-        }
-        
+                
+            }
+            
         }
         
     }
-
+    
 }
