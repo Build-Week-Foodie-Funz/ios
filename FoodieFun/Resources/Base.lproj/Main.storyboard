@@ -58,6 +58,7 @@
                                 </state>
                                 <connections>
                                     <action selector="loginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zFW-kj-NN9"/>
+                                    <segue destination="VGX-Lz-Y4g" kind="show" id="JA0-tZ-bVZ"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mobile-login" translatesAutoresizingMaskIntoConstraints="NO" id="0Uw-eR-NRK">
@@ -496,6 +497,6 @@ Operation</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="n0b-gG-4Dw"/>
-        <segue reference="JB9-gl-H8C"/>
+        <segue reference="JA0-tZ-bVZ"/>
     </inferredMetricsTieBreakers>
 </document>
