@@ -115,18 +115,9 @@ class RestaurantController: Codable{
         } catch {
             NSLog("Error saving to core data: \(error)")
         }
-        
-<<<<<<< HEAD
-         //Implement put later
-//        put(resturant: resturant)
-=======
-        
-        // Implement put later
->>>>>>> d3c29a4eac1a0ff39ce1f05f083fa59d86384464
-        
-    }
+
     
-    private func updatePersistentStore(with restaurantRepresentations: [RestaurantRepresentation], context: NSManagedObjectContext) {
+    func updatePersistentStore(with restaurantRepresentations: [RestaurantRepresentation], context: NSManagedObjectContext) {
         context.performAndWait {
             
             
@@ -310,7 +301,7 @@ class RestaurantController: Codable{
                     
                     // loop through the course representations
                     let moc = CoreDataStack.shared.container.newBackgroundContext()
-                    self.updatePersistentStore(with: restaurantRepresentation, context: moc)
+                    updatePersistentStore(with: restaurantRepresentation, context: moc)
                 }catch {
                     NSLog("Error decoding: \(error)")
                 }
@@ -339,4 +330,5 @@ class RestaurantController: Codable{
         
     }
     
+}
 }
