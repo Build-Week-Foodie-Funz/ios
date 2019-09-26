@@ -146,7 +146,7 @@ class RestaurantController: Codable{
                     for restaurant in existingRestaurants{
                         guard let name = restaurant.name,
                             let representation = representationsByName[name] else { continue }
-                        updateFoodie(restaurant: restaurant, with: representation)
+                        updateRestaurant(restaurant: restaurant, with: representation)
                         
                         restaurantsToCreate.removeValue(forKey: name)
                     }
@@ -163,7 +163,7 @@ class RestaurantController: Codable{
             }
         }
         
-        func updateFoodie(restaurant: Restaurant, with restaurantRep: RestaurantRepresentation) {
+        func updateRestaurant(restaurant: Restaurant, with restaurantRep: RestaurantRepresentation) {
             
             restaurant.name = restaurantRep.name
             restaurant.location = restaurantRep.location
