@@ -19,11 +19,12 @@
         <attribute name="menuItem" optional="YES" attributeType="String"/>
         <attribute name="photoMenu" optional="YES" attributeType="String"/>
         <attribute name="review" optional="YES" attributeType="String"/>
+        <attribute name="reviewId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="restaurant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Restaurant" inverseName="reviews" inverseEntity="Restaurant"/>
     </entity>
     <elements>
         <element name="PhotoEntity" positionX="191.609375" positionY="21.78515625" width="128" height="58"/>
         <element name="Restaurant" positionX="-63" positionY="-18" width="128" height="148"/>
-        <element name="ReviewEntity" positionX="16.14453125" positionY="176.15625" width="128" height="148"/>
+        <element name="ReviewEntity" positionX="16.14453125" positionY="176.15625" width="128" height="163"/>
     </elements>
 </model>
