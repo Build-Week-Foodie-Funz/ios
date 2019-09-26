@@ -17,6 +17,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameLoginTextfield: UITextField!
     @IBOutlet weak var passwordLoginTextfield: UITextField!
     
+    var restaurantController: RestaurantController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
