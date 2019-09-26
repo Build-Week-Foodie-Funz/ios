@@ -30,7 +30,7 @@ struct Review: Equatable, Codable {
     var cuisineType: String?
     var menuItem: String?
     var photoMenu: String?
-    var itemPrice: Int?
+    var itemPrice: Int64?
     var itemRating: String?
     var review: String?
     
