@@ -116,8 +116,13 @@ class RestaurantController: Codable{
             NSLog("Error saving to core data: \(error)")
         }
         
+<<<<<<< HEAD
+         //Implement put later
+//        put(resturant: resturant)
+=======
         
         // Implement put later
+>>>>>>> d3c29a4eac1a0ff39ce1f05f083fa59d86384464
         
     }
     
