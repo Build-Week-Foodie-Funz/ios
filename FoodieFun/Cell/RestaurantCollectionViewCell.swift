@@ -15,12 +15,12 @@ class RestaurantCollectionViewCell: UICollectionViewCell {
     
     var restaurant: Restaurant? {
         didSet {
-            
+            updateViews()
         }
     }
     
     func updateViews() {
         guard let restaurant = restaurant else { return }
-        // setup labela nd image here. 
+        // setup labela nd image here.
     }
 }
