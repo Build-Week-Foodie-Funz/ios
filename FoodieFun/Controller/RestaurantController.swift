@@ -178,7 +178,7 @@ class RestaurantController: Codable{
             
         }
         
-        func post(restaurant: Restaurant, completion: @escaping () -> Void = {}) {
+        func postRestaurant(restaurant: Restaurant, completion: @escaping () -> Void = {}) {
             guard let name = restaurant.name else {return}
                 let requestURL = baseURL.appendingPathComponent("user/restaurant/")
                var request = URLRequest(url: requestURL)
