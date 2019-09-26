@@ -146,7 +146,7 @@ class RestaurantController: Codable{
                     for restaurant in existingRestaurants{
                         guard let name = restaurant.name,
                             let representation = representationsByName[name] else { continue }
-                        self.updateFoodie(restaurant: restaurant, with: representation)
+                        updateFoodie(restaurant: restaurant, with: representation)
                         
                         restaurantsToCreate.removeValue(forKey: name)
                     }
@@ -163,12 +163,12 @@ class RestaurantController: Codable{
             }
         }
         
-        func updateFoodie(restaurant: Restaurant, with name: String, location: String, reviews: String, photos: URL) {
+        func updateFoodie(restaurant: Restaurant, with restaurantRep: RestaurantRepresentation) {
             
-            restaurant.name = name
-            restaurant.location = location
-            restaurant.photo = [photos]
-            restaurant.reviews = [reviews]
+            restaurant.name = restaurantRep.name
+            restaurant.location = restaurantRep.location
+//            restaurant.photo = restaurantRep.photo
+//            restaurant.reviews = restaurantRep.reviews
             
             do {
                 try CoreDataStack.shared.save()
