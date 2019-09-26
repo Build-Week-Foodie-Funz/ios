@@ -13,4 +13,14 @@ class RestaurantCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var restaurantImageView: UIView!
     @IBOutlet weak var infoLabel: UILabel!
     
+    var restaurant: Restaurant? {
+        didSet {
+            
+        }
+    }
+    
+    func updateViews() {
+        guard let restaurant = restaurant else { return }
+        // setup labela nd image here. 
+    }
 }

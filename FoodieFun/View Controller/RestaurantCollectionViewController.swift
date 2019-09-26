@@ -57,15 +57,16 @@ class RestaurantCollectionViewController: UICollectionViewController {
         
     }
     
-    /*
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "AddSegue" {
+            guard let showDetailVC = segue.destination as? AddRestaurantViewController else { return }
+            showDetailVC
+        }
     }
-    */
+    
 
     // MARK: UICollectionViewDataSource
 
@@ -84,7 +85,7 @@ class RestaurantCollectionViewController: UICollectionViewController {
        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as?
         RestaurantCollectionViewCell else { return UICollectionViewCell() }
     
-        let restuarant = fetchRequestController.object(at: indexPath)
+        cell.restaurant = fetchRequestController.object(at: indexPath)
     
         return cell
     }
