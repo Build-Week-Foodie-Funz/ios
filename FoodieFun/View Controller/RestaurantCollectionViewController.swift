@@ -63,7 +63,7 @@ class RestaurantCollectionViewController: UICollectionViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddSegue" {
             guard let showDetailVC = segue.destination as? AddRestaurantViewController else { return }
-            showDetailVC
+            showDetailVC.restaurantController = restuarantController
         }
     }
     
