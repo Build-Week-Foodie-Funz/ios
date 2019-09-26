@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum LoginType {
+    case signUp
+    case signIn
+}
+
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var registerUsernameTextfield: UITextField!
@@ -18,6 +23,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordLoginTextfield: UITextField!
     
     var restaurantController: RestaurantController?
+    var loginType = LoginType.signUp
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +31,56 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     @IBAction func registerButtonTapped(_ sender: Any) {
+        guard let username = registerUsernameTextfield.text,
+            let password = registerPasswordTextfield.text,
+            let email = emailTextfield.text,
+            let location = locationTextfield.text,
+            !username.isEmpty,
+            !password.isEmpty,
+            !email.isEmpty,
+            !location.isEmpty else { return }
         
+        let user = User(userID: <#T##Int?#>, username: username, password: password, token: <#T##String?#>)
+        
+        if loginType == .signUp {
+            restaurantController?.signUp(with: user, completion: { (networkError) in
+                
+                if let error = networkError {
+                    NSLog("Error occurred during sign up: \(error)")
+                } else {
+                    let alert = UIAlertController(title: "Sign Up Successful", message: "Now please sign in", preferredStyle: .alert)
+                    
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    
+                    alert.addAction(okAction)
+                }
+
+            })
+        }
     }
     
     @IBAction func loginButtonTapped(_ sender: Any) {
+        
+        guard let username = usernameLoginTextfield.text,
+            let password = passwordLoginTextfield.text,
+            !username.isEmpty,
+            !password.isEmpty else { return }
+        
+        let user = User(userID: <#T##Int?#>, username: username, password: password, token: <#T##String?#>)
+        
+        if loginType == .signIn {
+            restaurantController?.login(with: user, completion: { (networkError) in
+                if let error = networkError {
+                    NSLog("Error occurred during login: \(error)")
+                } else {
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+            })
+        }
+        
+        
         
     }
     
