@@ -61,7 +61,7 @@ class RestaurantController: Codable{
             //TODO: had an error look at later if something wrong
             
             completion(.success)
-        }.resume()
+            }.resume()
     }
     
     func login(with user: User, completion: @escaping (NetworkingError?) -> Void) {
@@ -103,10 +103,10 @@ class RestaurantController: Codable{
                 return
             }
             completion(nil)
-        }.resume()
+            }.resume()
     }
     
-    @discardableResult func createFoodie(with name: String, location: String, reviews: String, photos: URL, hoursOfOperation: Int64, overallRating: Int64) -> Restaurant {
+    @discardableResult func createFoodie(with name: String, location: String, reviews: [Review], photos: [Photo], hoursOfOperation: Int64, overallRating: Int64) -> Restaurant {
         
         let restaurant = Restaurant(name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, photos: photos, reviews: reviews)
         
@@ -122,66 +122,104 @@ class RestaurantController: Codable{
         return restaurant
     }
     
-    func updateFoodie(restaurant: Restaurant, with name: String, location: String, reviews: String, photos: URL) {
-        
-        restaurant.name = name
-        restaurant.location = location
-        restaurant.reviews = reviews
-        restaurant.photos = photos
-        
-        do {
-            try CoreDataStack.shared.save()
-        } catch {
-            NSLog("Error updating core data: \(error)")
-        }
-        
-    }
-    
-    func delete(restaurant: Restaurant) {
-        
-       CoreDataStack.shared.mainContext.delete(restaurant)
-        
-        do {
-            try CoreDataStack.shared.save()
-        } catch {
-            NSLog("Error deleting core data: \(error)")
-        }
-       
-        
-    }
-}
-
-extension RestaurantController {
-    func fetchSessionsFromServer(classId: Int64, completion: @escaping () -> Void = {}) {
-        guard let token = user?.token else { return }
-        let requestURL = baseURL.appendingPathComponent("api/classes/ \(classId)/sessions")
-        var request = URLRequest(url: requestURL)
-        request.httpMethod = HTTPMethod.get.rawValue
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        
-        URLSession.shared.dataTask(with: request) { (data, _, error) in
-            if let error = error {
-                NSLog("Error fetching sessions from server: \(error)")
-                return
-            }
-            guard let data = data else {
-                NSLog("No data returned from data task")
-                return
-            }
-            do {
-                let decoder = JSONDecoder()
-                let dateformatter = DateFormatter()
-                //let sessionRepresentations = try decoder.decode([SessionRepresentation].self, from: data)
+    private func updatePersistentStore(with restaurantRepresentations: [RestaurantRepresentation], context: NSManagedObjectContext) {
+        context.performAndWait {
+            
+            
+            
+            let namesToFetch = restaurantRepresentations.compactMap({$0.name!})
+            
+            let representationsByName = Dictionary(uniqueKeysWithValues: zip(namesToFetch, restaurantRepresentations))
+            
+            var restaurantsToCreate = representationsByName
+            
+            let fetchRequest: NSFetchRequest<Restaurant> = Restaurant.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "name IN %@", namesToFetch)
+            
+            let context = CoreDataStack.shared.container.newBackgroundContext()
+            
+            context.performAndWait {
                 
-                // loop through the course representations
-                let moc = CoreDataStack.shared.container.newBackgroundContext()
-               // self.updatePersistentStore(with: sessionRepresentations, context: moc)
-            }catch {
-                NSLog("Error decoding: \(error)")
+                do {
+                    let existingRestaurants = try context.fetch(fetchRequest)
+                    
+                    for restaurant in existingRestaurants{
+                        guard let name = restaurant.name,
+                            let representation = representationsByName[name] else { continue }
+                        self.updateFoodie(restaurant: restaurant, with: representation)
+                        
+                        restaurantsToCreate.removeValue(forKey: name)
+                    }
+                    
+                    for representation in restaurantsToCreate.values {
+                        Restaurant(restaurantRepresentation: representation, context: context)
+                    }
+                    
+                } catch {
+                    NSLog("Error fetching tasks for UUIDs: \(error)")
+                }
+                
+                try? CoreDataStack.shared.save(context: context)
             }
-            completion()
-            }.resume()
+        }
+        
+        func updateFoodie(restaurant: Restaurant, with name: String, location: String, reviews: String, photos: URL) {
+            
+            restaurant.name = name
+            restaurant.location = location
+            restaurant.photo = [photos]
+            restaurant.reviews = [reviews]
+            
+            do {
+                try CoreDataStack.shared.save()
+            } catch {
+                NSLog("Error updating core data: \(error)")
+            }
+            
+        }
+        
+        func delete(restaurant: Restaurant) {
+            
+            CoreDataStack.shared.mainContext.delete(restaurant)
+            
+            do {
+                try CoreDataStack.shared.save()
+            } catch {
+                NSLog("Error deleting core data: \(error)")
+            }
+            
+            func fetchRestaurantsFromServer(classId: Int64, completion: @escaping () -> Void = {}) {
+                guard let token = user?.token else { return }
+                let requestURL = baseURL.appendingPathComponent("user") .appendingPathComponent("restaurant")
+                var request = URLRequest(url: requestURL)
+                request.httpMethod = HTTPMethod.get.rawValue
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue(token, forHTTPHeaderField: "Authorization")
+                
+                URLSession.shared.dataTask(with: request) { (data, _, error) in
+                    if let error = error {
+                        NSLog("Error fetching sessions from server: \(error)")
+                        return
+                    }
+                    guard let data = data else {
+                        NSLog("No data returned from data task")
+                        return
+                    }
+                    do {
+                        let decoder = JSONDecoder()
+                        let restaurantRepresentation  = try decoder.decode([RestaurantRepresentation].self, from: data)
+                        
+                        // loop through the course representations
+                        let moc = CoreDataStack.shared.container.newBackgroundContext()
+                        self.updatePersistentStore(with: restaurantRepresentation, context: moc)
+                    }catch {
+                        NSLog("Error decoding: \(error)")
+                    }
+                    completion()
+                    }.resume()
+            }
+            
+        }
+        
     }
-    
 }
