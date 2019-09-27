@@ -22,6 +22,7 @@
 		E88B7F55233D3E1800D8CBD4 /* chinese rocks rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E8A81ACE233A909C00C0D8B7 /* chinese rocks rg.ttf */; };
 		E88B7F56233D3E1B00D8CBD4 /* vds-thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E8A81ACF233A90B400C0D8B7 /* vds-thin.ttf */; };
 		E88B7F57233D3E1E00D8CBD4 /* zrnic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E8A81AD0233A90BA00C0D8B7 /* zrnic.ttf */; };
+		E88B7F80233E66A400D8CBD4 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88B7F7F233E66A400D8CBD4 /* RegisterViewController.swift */; };
 		E8A81AD3233A9E6F00C0D8B7 /* RestaurantRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A81AD1233A9E6F00C0D8B7 /* RestaurantRepresentation.swift */; };
 		E8A81AD5233AA02C00C0D8B7 /* RestaurantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A81AD4233AA02C00C0D8B7 /* RestaurantController.swift */; };
 		E8A81ADA233AA13600C0D8B7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A81AD9233AA13600C0D8B7 /* User.swift */; };
@@ -42,6 +43,7 @@
 		9EF5E2B6233BE1E900438972 /* Restaurant+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Restaurant+Convenience.swift"; sourceTree = "<group>"; };
 		9EF5E2B8233BE30E00438972 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E88B7F52233C1E2A00D8CBD4 /* RestaurantCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCollectionViewCell.swift; sourceTree = "<group>"; };
+		E88B7F7F233E66A400D8CBD4 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E8A81ACE233A909C00C0D8B7 /* chinese rocks rg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "chinese rocks rg.ttf"; sourceTree = "<group>"; };
 		E8A81ACF233A90B400C0D8B7 /* vds-thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "vds-thin.ttf"; sourceTree = "<group>"; };
 		E8A81AD0233A90BA00C0D8B7 /* zrnic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = zrnic.ttf; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		E8A81ACB233A85C300C0D8B7 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E88B7F7F233E66A400D8CBD4 /* RegisterViewController.swift */,
 				9E4D635F233945D60037308E /* LoginViewController.swift */,
 				9EF5E2B1233BC46700438972 /* RestaurantCollectionViewController.swift */,
 				9E4D6365233984E10037308E /* AddRestaurantViewController.swift */,
@@ -227,6 +230,7 @@
 				9EF5E2B7233BE1E900438972 /* Restaurant+Convenience.swift in Sources */,
 				E8A81AD5233AA02C00C0D8B7 /* RestaurantController.swift in Sources */,
 				9E4D634E23393DC40037308E /* AppDelegate.swift in Sources */,
+				E88B7F80233E66A400D8CBD4 /* RegisterViewController.swift in Sources */,
 				9E4D6366233984E10037308E /* AddRestaurantViewController.swift in Sources */,
 				9EF5E2B2233BC46700438972 /* RestaurantCollectionViewController.swift in Sources */,
 			);

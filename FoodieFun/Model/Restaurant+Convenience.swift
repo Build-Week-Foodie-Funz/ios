@@ -40,6 +40,7 @@ extension Restaurant {
     var restaurantRepresentation: RestaurantRepresentation? {
         guard let reviews = reviews else {return nil}
         let reviewArray = Array(reviews)
+        
         return RestaurantRepresentation(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, reviews: reviewArray as? [Review])
     }
     

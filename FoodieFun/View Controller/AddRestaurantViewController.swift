@@ -57,10 +57,10 @@ class AddRestaurantViewController: UIViewController {
 
         
         guard let review = reviewTextfield.text else {return}
-            let reviews = Review(cuisineType: cuisine, review: review)
+//            let reviews = Review(cuisineType: cuisine, review: review)
         
         
-        restaurantController?.createRestaurant(with: newIdentity, restaurant: restaurant, name: name, location: location, reviews: [reviews] , hoursOfOperation: Inthours, overallRating: newRating)
+//        restaurantController?.createRestaurant(with: newIdentity, restaurant: restaurant, name: name, location: location, reviews: [reviews] , hoursOfOperation: Inthours, overallRating: newRating)
         
         
     }
