@@ -13,7 +13,8 @@ private let reuseIdentifier = "RestaurantCell"
 
 class RestaurantCollectionViewController: UICollectionViewController {
     
-    let restuarantController = RestaurantController()
+    // Might need to change
+    var restuarantController = RestaurantController()
     
     lazy var fetchRequestController: NSFetchedResultsController<Restaurant> = {
         let fetchRequest: NSFetchRequest<Restaurant> = Restaurant.fetchRequest()

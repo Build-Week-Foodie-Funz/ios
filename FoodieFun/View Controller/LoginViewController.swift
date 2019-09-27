@@ -22,12 +22,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameLoginTextfield: UITextField!
     @IBOutlet weak var passwordLoginTextfield: UITextField!
     
-    var restaurantController: RestaurantController?
-    var loginType = LoginType.signUp
+    var restaurantController = RestaurantController()
+    var loginType: LoginType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     @IBAction func registerButtonTapped(_ sender: Any) {
@@ -40,21 +40,27 @@ class LoginViewController: UIViewController {
             !email.isEmpty,
             !location.isEmpty else { return }
         
-        let user = User(userID: <#T##Int?#>, username: username, password: password, token: <#T##String?#>)
+        let idNumber = Int.random(in: 100...100000)
+        
+        let user = User(userID: idNumber, username: username, password: password, token: nil)
         
         if loginType == .signUp {
-            restaurantController?.signUp(with: user, completion: { (networkError) in
+            restaurantController.signUp(with: user, completion: { (networkError) in
                 
-                if let error = networkError {
-                    NSLog("Error occurred during sign up: \(error)")
-                } else {
+                //if let error = networkError {
+                //NSLog("Error occurred during sign up: \(error)")
+                //} else {
+                
+                DispatchQueue.main.async {
                     let alert = UIAlertController(title: "Sign Up Successful", message: "Now please sign in", preferredStyle: .alert)
                     
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     
                     alert.addAction(okAction)
+                    self.performSegue(withIdentifier: "SignupSegue", sender: self)
                 }
-
+                //}
+                
             })
         }
     }
@@ -66,17 +72,19 @@ class LoginViewController: UIViewController {
             !username.isEmpty,
             !password.isEmpty else { return }
         
-        let user = User(userID: <#T##Int?#>, username: username, password: password, token: <#T##String?#>)
+        let idNumber = Int.random(in: 100...100000)
+        
+        let user = User(userID: idNumber, username: username, password: password, token: nil)
         
         if loginType == .signIn {
-            restaurantController?.login(with: user, completion: { (networkError) in
-                if let error = networkError {
-                    NSLog("Error occurred during login: \(error)")
-                } else {
+            restaurantController.login(with: user, completion: { (networkError) in
+                //if let error = networkError {
+                    //NSLog("Error occurred during login: \(error)")
+                //} else {
                     DispatchQueue.main.async {
-                        self.dismiss(animated: true, completion: nil)
+                        self.performSegue(withIdentifier: "LoginSegue", sender: self)
                     }
-                }
+                //}
             })
         }
         
@@ -84,14 +92,15 @@ class LoginViewController: UIViewController {
         
     }
     
-    /*
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "LoginSegue" {
+            guard let detailVC = segue.destination as? RestaurantCollectionViewController else { return }
+            detailVC.restuarantController = restaurantController
+        }
     }
-    */
-
+    
+    
 }
