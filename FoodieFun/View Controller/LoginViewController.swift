@@ -7,12 +7,9 @@
 //
 
 import UIKit
-
-enum LoginType {
-    case signUp
-    case signIn
+protocol LoginDelegate {
+    func setController(restaurantController: RestaurantController)
 }
-
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var registerUsernameTextfield: UITextField!
@@ -22,8 +19,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameLoginTextfield: UITextField!
     @IBOutlet weak var passwordLoginTextfield: UITextField!
     
+<<<<<<< HEAD
     var restaurantController = RestaurantController()
     var loginType: LoginType?
+=======
+   
+>>>>>>> 4d5221c4b15ea56ebd85f1b0baa5359597a1d691
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,7 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     @IBAction func registerButtonTapped(_ sender: Any) {
+<<<<<<< HEAD
         guard let username = registerUsernameTextfield.text,
             let password = registerPasswordTextfield.text,
             let email = emailTextfield.text,
@@ -63,10 +65,14 @@ class LoginViewController: UIViewController {
                 
             })
         }
+=======
+        
+>>>>>>> 4d5221c4b15ea56ebd85f1b0baa5359597a1d691
     }
     
     @IBAction func loginButtonTapped(_ sender: Any) {
         
+<<<<<<< HEAD
         guard let username = usernameLoginTextfield.text,
             let password = passwordLoginTextfield.text,
             !username.isEmpty,
@@ -90,6 +96,8 @@ class LoginViewController: UIViewController {
         
         
         
+=======
+>>>>>>> 4d5221c4b15ea56ebd85f1b0baa5359597a1d691
     }
     
     

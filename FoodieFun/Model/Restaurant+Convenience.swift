@@ -38,22 +38,13 @@ extension Restaurant {
     }
     
     var restaurantRepresentation: RestaurantRepresentation? {
-        guard let reviews = reviews,
-            let photo = photo else {return nil}
+        guard let reviews = reviews else {return nil}
         let reviewArray = Array(reviews)
-        let photoArray = Array(photo)
-        return RestaurantRepresentation(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, reviews: reviewArray as? [Review], photo: photoArray as? [Photo])
+        return RestaurantRepresentation(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, reviews: reviewArray as? [Review])
     }
     
 }
 
-
-extension PhotoEntity {
-    convenience init (photo: URL, context: NSManagedObjectContext) {
-        self.init(context: context)
-        self.photo = photo
-    }
-}
 
 extension ReviewEntity {
     convenience init (reviewId: Int64, cuisineType: String, menuItem: String, photoMenu: String, itemPrice: Int64, itemRating: String, review: String, context: NSManagedObjectContext){
@@ -68,5 +59,11 @@ extension ReviewEntity {
         
         
         
+    }
+    
+    convenience init(cuisineType: String, review: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        self.init(context: context)
+        self.cuisineType = cuisineType
+        self.review = review
     }
 }
