@@ -8,9 +8,7 @@
 
 import UIKit
 
-enum LoginType {
-    case signUp
-}
+
 
 class RegisterViewController: UIViewController {
 
@@ -20,7 +18,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var locationTextfield: UITextField!
     
     var restaurantController: RestaurantController?
-    var loginType = LoginType.signUp
+
     
     
     override func viewDidLoad() {
@@ -43,7 +41,6 @@ class RegisterViewController: UIViewController {
         
          let idNumber = Int.random(in: 100...100000)
         
-        if loginType == .signUp {
             
             restaurantController?.signUp(with: idNumber, username: username, password: password, email: email, completion: { (networkError) in
                 
@@ -63,7 +60,7 @@ class RegisterViewController: UIViewController {
                 }
             })
            
-        }
+        
    
     }
     @IBAction func cancelButton(_ sender: UIButton) {
