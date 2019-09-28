@@ -31,6 +31,7 @@ class RegisterViewController: UIViewController {
     
     @IBAction func registerButtonTapped(_ sender: Any) {
         
+        
         guard let username = usernameTextfield.text,
             let password = passwordTextfield.text,
             let email = emailTextfield.text,
@@ -57,12 +58,13 @@ class RegisterViewController: UIViewController {
                     
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "SignupSegue", sender: self)
+                        self.navigationController?.popViewController(animated: true)
                     }
                 }
             })
            
         }
-         
+   
     }
     @IBAction func cancelButton(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
