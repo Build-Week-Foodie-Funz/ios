@@ -224,7 +224,6 @@ class RestaurantController: Codable{
         context.performAndWait {
             
             
-            
             let namesToFetch = restaurantRepresentations.compactMap({$0.name!})
             
             let representationsByName = Dictionary(uniqueKeysWithValues: zip(namesToFetch, restaurantRepresentations))
@@ -324,7 +323,8 @@ class RestaurantController: Codable{
             
         }
         
-        func fetchRestaurantsFromServer(classId: Int64, completion: @escaping () -> Void = {}) {
+        func fetchRestaurantsFromServer(completion: @escaping () -> Void = {}) {
+            
             guard let token = user?.token else { return }
             let requestURL = baseURL.appendingPathComponent("user/restaurant")
             var request = URLRequest(url: requestURL)
