@@ -31,7 +31,7 @@ class RestaurantController: Codable{
     
     var user: User?
     
-    func signUp(with username: String, password: String, email: String, completion: @escaping (NetworkingError?) -> Void) {
+    func signUp(with userID: Int, username: String, password: String, email: String, completion: @escaping (NetworkingError?) -> Void) {
         
         let newUser = User(userID: nil, username: username, password: password, email: email, token: nil)
         
@@ -80,7 +80,9 @@ class RestaurantController: Codable{
         }.resume()
     }
     
-    func login(with user: User, completion: @escaping (NetworkingError?) -> Void) {
+    func login(with username: String, password: String, completion: @escaping (NetworkingError?) -> Void) {
+        
+        let userLogin = User(userID: nil, username: username, password: password, email: nil, token: nil)
         let loginURL = baseURL
             .appendingPathComponent("user")
             .appendingPathComponent("login")
@@ -92,7 +94,7 @@ class RestaurantController: Codable{
         let encoder = JSONEncoder()
         
         do {
-            request.httpBody = try encoder.encode(user)
+            request.httpBody = try encoder.encode(userLogin)
         } catch {
             NSLog("Error encoding user object: \(error)")
             completion(.encodingError)

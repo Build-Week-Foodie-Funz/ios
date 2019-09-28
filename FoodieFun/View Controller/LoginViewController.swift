@@ -37,10 +37,8 @@ class LoginViewController: UIViewController {
         
         let idNumber = Int.random(in: 100...100000)
         
-        let user = User(userID: idNumber, username: username, password: password, token: nil)
-        
         if loginType == .signIn {
-            restaurantController?.login(with: user, completion: { (networkingError) in
+            restaurantController?.login(with: username, password: password, completion: { (networkingError) in
                 if let error = networkingError {
                     NSLog("Error occurred during login: \(error)")
                 } else {

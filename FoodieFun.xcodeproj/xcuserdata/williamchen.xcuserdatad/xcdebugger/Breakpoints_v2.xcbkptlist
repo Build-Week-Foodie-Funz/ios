@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "113"
             endingLineNumber = "113"
-            landmarkName = "createRestaurant(with:restaurant:name:location:reviews:hoursOfOperation:overallRating:context:)"
+            landmarkName = "login(with:password:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

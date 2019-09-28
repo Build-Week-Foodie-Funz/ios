@@ -42,11 +42,9 @@ class RegisterViewController: UIViewController {
         
          let idNumber = Int.random(in: 100...100000)
         
-        let user = User(userID: idNumber, username: username, password: password, token: nil)
-        
         if loginType == .signUp {
             
-            restaurantController?.signUp(with: user, completion: { (networkError) in
+            restaurantController?.signUp(with: idNumber, username: username, password: password, email: email, completion: { (networkError) in
                 
                 if let error = networkError {
                     NSLog("Error occurred during sign up: \(error)")
