@@ -33,7 +33,7 @@ class RestaurantController: Codable{
     
     func signUp(with userID: Int, username: String, password: String, email: String, completion: @escaping (NetworkingError?) -> Void) {
         
-        let newUser = User(userID: nil, username: username, password: password, email: email, token: nil)
+        let newUser = User(userID: userID, username: username, password: password, email: email, token: nil)
         
         let signUpURL = baseURL
             .appendingPathComponent("user")
