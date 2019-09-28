@@ -108,9 +108,9 @@ class RestaurantController: Codable{
     
     func createRestaurant(with id: Int64, restaurant: RestaurantRepresentation, name: String, location: String, reviews: [Review], hoursOfOperation: Int64, overallRating: Int64, context: NSManagedObjectContext = CoreDataStack.shared.mainContext)  {
         guard let id = restaurant.id  else { return }
-        
         //Restaurant won't auto populate
-        let restaurant = Restaurant()
+        let restaurant = Restaurant(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, reviews: reviews)
+        
         
         do {
             try CoreDataStack.shared.save()

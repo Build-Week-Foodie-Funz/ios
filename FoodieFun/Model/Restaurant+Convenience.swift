@@ -11,7 +11,7 @@ import CoreData
 
 extension Restaurant {
 
-    convenience init(id: Int64, name: String, location: String, hoursOfOperation: Int64, overallRating: Int64, photos: [Photo], reviews: [Review], context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+    convenience init(id: Int64, name: String, location: String, hoursOfOperation: Int64, overallRating: Int64, reviews: [Review], context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         
         self.init(context: context)
         self.id = id
@@ -30,18 +30,18 @@ extension Restaurant {
             let location = restaurantRepresentation.location,
             let hoursOfOperation = restaurantRepresentation.hoursOfOperation,
             let overallRating = restaurantRepresentation.overallRating,
-            let reviews = restaurantRepresentation.reviews,
-            let photos = restaurantRepresentation.photo
+            let reviews = restaurantRepresentation.reviews
+      
             else { return nil }
         
-        self.init(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, photos: photos, reviews: reviews)
+        self.init(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, reviews: reviews)
     }
     
     var restaurantRepresentation: RestaurantRepresentation? {
         guard let reviews = reviews else {return nil}
         let reviewArray = Array(reviews)
         
-        return RestaurantRepresentation(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, reviews: reviewArray as? [Review], photo: <#T##[Photo]?#>)//(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, reviews: /*reviewArray as? [Review]*/)
+        return RestaurantRepresentation(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, reviews: reviewArray as? [Review])//(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, reviews: /*reviewArray as? [Review]*/)
     }
     
 }
