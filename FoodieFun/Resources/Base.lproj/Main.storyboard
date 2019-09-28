@@ -59,9 +59,8 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mobile-login" translatesAutoresizingMaskIntoConstraints="NO" id="0Uw-eR-NRK">
                                 <rect key="frame" x="-9" y="126" width="432" height="398"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z13-EN-q9o">
-                                <rect key="frame" x="343" y="577" width="57" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z13-EN-q9o">
+                                <rect key="frame" x="327" y="617" width="57" height="30"/>
                                 <state key="normal" title="Register"/>
                                 <connections>
                                     <segue destination="1op-x0-OXY" kind="show" identifier="registerSegue" id="jey-zs-ciZ"/>
@@ -78,6 +77,7 @@
                             <constraint firstItem="zw6-aP-9iP" firstAttribute="top" secondItem="0Uw-eR-NRK" secondAttribute="bottom" constant="8" id="Gn8-Ca-qhC"/>
                             <constraint firstItem="EsI-7j-gaN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="111" id="IPY-iz-JmG"/>
                             <constraint firstItem="zw6-aP-9iP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JCk-Qi-fDK"/>
+                            <constraint firstItem="z13-EN-q9o" firstAttribute="trailing" secondItem="bsf-3o-b5k" secondAttribute="trailing" id="L8W-wA-ohx"/>
                             <constraint firstAttribute="trailing" secondItem="0Uw-eR-NRK" secondAttribute="trailing" constant="-9" id="MVB-dM-Bzv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qeR-TB-tsL" secondAttribute="trailing" constant="118" id="Ohd-OT-NN3"/>
                             <constraint firstItem="0Uw-eR-NRK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="38" id="PpX-rc-QPs"/>
@@ -88,6 +88,7 @@
                             <constraint firstItem="qeR-TB-tsL" firstAttribute="top" secondItem="kqM-jb-ZgR" secondAttribute="bottom" constant="32" id="YcR-m7-7Co"/>
                             <constraint firstItem="bsf-3o-b5k" firstAttribute="top" secondItem="EsI-7j-gaN" secondAttribute="bottom" constant="40" id="chp-EH-AJ7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kqM-jb-ZgR" secondAttribute="trailing" constant="30" id="ega-qx-ybD"/>
+                            <constraint firstItem="bsf-3o-b5k" firstAttribute="top" secondItem="z13-EN-q9o" secondAttribute="bottom" constant="8" id="jU4-lF-p5b"/>
                             <constraint firstItem="EsI-7j-gaN" firstAttribute="top" secondItem="0Uw-eR-NRK" secondAttribute="bottom" constant="41" id="nQk-ZP-kUl"/>
                             <constraint firstItem="qeR-TB-tsL" firstAttribute="top" secondItem="kqM-jb-ZgR" secondAttribute="bottom" constant="32" id="sUa-MZ-ejl"/>
                             <constraint firstItem="qeR-TB-tsL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="119" id="tru-bb-ziw"/>
