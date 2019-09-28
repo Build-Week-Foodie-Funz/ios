@@ -23,7 +23,6 @@ enum NetworkingError: Error {
     case noDecode
     case noToken
     case success
-    
 }
 
 class RestaurantController: Codable{
@@ -32,7 +31,9 @@ class RestaurantController: Codable{
     
     var user: User?
     
-    func signUp(with user: User, completion: @escaping (NetworkingError?) -> Void) {
+    func signUp(with username: String, password: String, email: String, completion: @escaping (NetworkingError?) -> Void) {
+        
+        let newUser = User(userID: nil, username: username, password: password, email: email, token: nil)
         
         let signUpURL = baseURL
             .appendingPathComponent("user")
@@ -45,7 +46,7 @@ class RestaurantController: Codable{
         let encoder = JSONEncoder()
         
         do {
-            let userData = try encoder.encode(user)
+            let userData = try encoder.encode(newUser)
             request.httpBody = userData
         } catch {
             NSLog("Error encoding user: \(error)")
@@ -58,9 +59,24 @@ class RestaurantController: Codable{
                 completion(.otherError(error))
                 return
             }
-            //TODO: had an error look at later if something wrong
-            
-            completion(.success)
+        guard let data = data else {
+                completion(.noData)
+                return
+            }
+            do {
+                let userIdDict = try JSONDecoder().decode([Int].self, from: data)
+                if userIdDict.first != nil {
+                    completion(.success)
+                } else {
+                    completion(.noData)
+                    return
+                }
+                
+            } catch {
+                NSLog("Error decoding when login: \(error)")
+                completion(.noDecode)
+                return
+            }
         }.resume()
     }
     

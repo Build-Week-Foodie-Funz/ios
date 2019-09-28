@@ -62,7 +62,9 @@ class RegisterViewController: UIViewController {
                     }
                 }
             })
+           
         }
+         
     }
     @IBAction func cancelButton(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
