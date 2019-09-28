@@ -58,8 +58,9 @@ class LoginViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "LoginSegue" {
+            guard let restauranController = restaurantController else {return}
             guard let detailVC = segue.destination as? RestaurantCollectionViewController else { return }
-//            detailVC.restuarantController = restaurantController
+            detailVC.restuarantController = restauranController
         }
     }
     
