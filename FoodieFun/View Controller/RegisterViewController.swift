@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class RegisterViewController: UIViewController {
 
     @IBOutlet weak var usernameTextfield: UITextField!
@@ -59,8 +57,6 @@ class RegisterViewController: UIViewController {
                     }
                 }
             })
-           
-        
    
     }
     @IBAction func cancelButton(_ sender: UIButton) {
@@ -69,11 +65,11 @@ class RegisterViewController: UIViewController {
     
     // MARK: - Navigation
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SignupSegue" {
-            guard let detailVC = segue.destination as? LoginViewController else { return }
-            detailVC.restaurantController = restaurantController
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "SignupSegue" {
+//            guard let detailVC = segue.destination as? LoginViewController else { return }
+//            detailVC.restaurantController = restaurantController
+//        }
+//    }
 
 }

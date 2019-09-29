@@ -9,8 +9,8 @@
 import Foundation
 struct  User: Codable, Equatable {
     let userID: Int?
-    let username: String?
-    let password: String?
+    let username: String
+    let password: String
     let email: String?
     let token: String?
     
@@ -21,5 +21,11 @@ struct  User: Codable, Equatable {
         case email
         case token
     }
+}
+
+struct UserLogin: Codable, Equatable{
+    let username: String
+    let password: String
+    
 }
 

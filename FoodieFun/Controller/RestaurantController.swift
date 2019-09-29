@@ -46,6 +46,7 @@ class RestaurantController: Codable{
         let encoder = JSONEncoder()
         
         do {
+            print(newUser)
             let userData = try encoder.encode(newUser)
             request.httpBody = userData
         } catch {
@@ -53,30 +54,22 @@ class RestaurantController: Codable{
             completion(.encodingError)
             return
         }
-        URLSession.shared.dataTask(with: request) { (data, _, error) in
+        
+        URLSession.shared.dataTask(with: request) { (_, response, error) in
             if let error = error {
                 NSLog("Error creating user on server: \(error)")
                 completion(.otherError(error))
                 return
             }
-        guard let data = data else {
-                completion(.noData)
-                return
-            }
-            do {
-                let userIdDict = try JSONDecoder().decode([Int].self, from: data)
-                if userIdDict.first != nil {
-                    completion(.success)
-                } else {
-                    completion(.noData)
-                    return
-                }
+            
+            if let response = response as? HTTPURLResponse,
+            response.statusCode != 200 {
+                print(response.statusCode)
                 
-            } catch {
-                NSLog("Error decoding when login: \(error)")
-                completion(.noDecode)
+                completion(.respondingError)
                 return
             }
+            
         }.resume()
     }
     
@@ -84,8 +77,10 @@ class RestaurantController: Codable{
         
         let userLogin = User(userID: nil, username: username, password: password, email: nil, token: nil)
         let loginURL = baseURL
+            .appendingPathComponent("users")
             .appendingPathComponent("user")
-            .appendingPathComponent("login")
+            .appendingPathComponent("name")
+            .appendingPathComponent("\(username)")
         
         var request = URLRequest(url: loginURL)
         request.httpMethod = HTTPMethod.post.rawValue
