@@ -17,7 +17,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameLoginTextfield: UITextField!
     @IBOutlet weak var passwordLoginTextfield: UITextField!
     
-    var restaurantController: RestaurantController?
+    var restaurantController = RestaurantController()
     var loginType: LoginType2?
 
     
@@ -37,10 +37,8 @@ class LoginViewController: UIViewController {
         
         let idNumber = Int.random(in: 100...100000)
         
-        let user = User(userID: idNumber, username: username, password: password, token: nil)
-        
         if loginType == .signIn {
-            restaurantController?.login(with: user, completion: { (networkingError) in
+            restaurantController.login(with: username, password: password, completion: { (networkingError) in
                 if let error = networkingError {
                     NSLog("Error occurred during login: \(error)")
                 } else {
@@ -59,7 +57,10 @@ class LoginViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "LoginSegue" {
             guard let detailVC = segue.destination as? RestaurantCollectionViewController else { return }
-//            detailVC.restuarantController = restaurantController
+            detailVC.restuarantController = restaurantController
+        }else if segue.identifier == "registerSegue" {
+            guard let registerVC = segue.destination as? RegisterViewController else {return}
+            registerVC.restaurantController = restaurantController
         }
     }
     

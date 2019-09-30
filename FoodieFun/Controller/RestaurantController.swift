@@ -23,7 +23,6 @@ enum NetworkingError: Error {
     case noDecode
     case noToken
     case success
-    
 }
 
 class RestaurantController: Codable{
@@ -32,7 +31,9 @@ class RestaurantController: Codable{
     
     var user: User?
     
-    func signUp(with user: User, completion: @escaping (NetworkingError?) -> Void) {
+    func signUp(with userID: Int, username: String, password: String, email: String, completion: @escaping (NetworkingError?) -> Void) {
+        
+        let newUser = User(userID: userID, username: username, password: password, email: email, token: nil)
         
         let signUpURL = baseURL
             .appendingPathComponent("user")
@@ -45,29 +46,41 @@ class RestaurantController: Codable{
         let encoder = JSONEncoder()
         
         do {
-            let userData = try encoder.encode(user)
+            print(newUser)
+            let userData = try encoder.encode(newUser)
             request.httpBody = userData
         } catch {
             NSLog("Error encoding user: \(error)")
             completion(.encodingError)
             return
         }
-        URLSession.shared.dataTask(with: request) { (data, _, error) in
+        
+        URLSession.shared.dataTask(with: request) { (_, response, error) in
             if let error = error {
                 NSLog("Error creating user on server: \(error)")
                 completion(.otherError(error))
                 return
             }
-            //TODO: had an error look at later if something wrong
             
-            completion(.success)
+            if let response = response as? HTTPURLResponse,
+            response.statusCode != 200 {
+                print(response.statusCode)
+                
+                completion(.respondingError)
+                return
+            }
+            
         }.resume()
     }
     
-    func login(with user: User, completion: @escaping (NetworkingError?) -> Void) {
+    func login(with username: String, password: String, completion: @escaping (NetworkingError?) -> Void) {
+        
+        let userLogin = User(userID: nil, username: username, password: password, email: nil, token: nil)
         let loginURL = baseURL
+            .appendingPathComponent("users")
             .appendingPathComponent("user")
-            .appendingPathComponent("login")
+            .appendingPathComponent("name")
+            .appendingPathComponent("\(username)")
         
         var request = URLRequest(url: loginURL)
         request.httpMethod = HTTPMethod.post.rawValue
@@ -76,7 +89,7 @@ class RestaurantController: Codable{
         let encoder = JSONEncoder()
         
         do {
-            request.httpBody = try encoder.encode(user)
+            request.httpBody = try encoder.encode(userLogin)
         } catch {
             NSLog("Error encoding user object: \(error)")
             completion(.encodingError)
@@ -108,9 +121,9 @@ class RestaurantController: Codable{
     
     func createRestaurant(with id: Int64, restaurant: RestaurantRepresentation, name: String, location: String, reviews: [Review], hoursOfOperation: Int64, overallRating: Int64, context: NSManagedObjectContext = CoreDataStack.shared.mainContext)  {
         guard let id = restaurant.id  else { return }
-        
         //Restaurant won't auto populate
-        let restaurant = Restaurant()
+        let restaurant = Restaurant(id: id, name: name, location: location, hoursOfOperation: hoursOfOperation, overallRating: overallRating, reviews: reviews)
+        
         
         do {
             try CoreDataStack.shared.save()
@@ -204,7 +217,6 @@ class RestaurantController: Codable{
         
     func updatePersistentStore(with restaurantRepresentations: [RestaurantRepresentation], context: NSManagedObjectContext) {
         context.performAndWait {
-            
             
             
             let namesToFetch = restaurantRepresentations.compactMap({$0.name!})
@@ -306,7 +318,8 @@ class RestaurantController: Codable{
             
         }
         
-        func fetchRestaurantsFromServer(classId: Int64, completion: @escaping () -> Void = {}) {
+        func fetchRestaurantsFromServer(completion: @escaping () -> Void = {}) {
+            
             guard let token = user?.token else { return }
             let requestURL = baseURL.appendingPathComponent("user/restaurant")
             var request = URLRequest(url: requestURL)

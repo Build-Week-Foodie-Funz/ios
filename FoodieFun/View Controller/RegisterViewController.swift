@@ -8,10 +8,6 @@
 
 import UIKit
 
-enum LoginType {
-    case signUp
-}
-
 class RegisterViewController: UIViewController {
 
     @IBOutlet weak var usernameTextfield: UITextField!
@@ -20,7 +16,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var locationTextfield: UITextField!
     
     var restaurantController: RestaurantController?
-    var loginType = LoginType.signUp
+
     
     
     override func viewDidLoad() {
@@ -30,6 +26,7 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func registerButtonTapped(_ sender: Any) {
+        
         
         guard let username = usernameTextfield.text,
             let password = passwordTextfield.text,
@@ -42,11 +39,8 @@ class RegisterViewController: UIViewController {
         
          let idNumber = Int.random(in: 100...100000)
         
-        let user = User(userID: idNumber, username: username, password: password, token: nil)
-        
-        if loginType == .signUp {
             
-            restaurantController?.signUp(with: user, completion: { (networkError) in
+            restaurantController?.signUp(with: idNumber, username: username, password: password, email: email, completion: { (networkError) in
                 
                 if let error = networkError {
                     NSLog("Error occurred during sign up: \(error)")
@@ -59,19 +53,23 @@ class RegisterViewController: UIViewController {
                     
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "SignupSegue", sender: self)
+                        self.navigationController?.popViewController(animated: true)
                     }
                 }
             })
-        }
+   
+    }
+    @IBAction func cancelButton(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Navigation
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SignupSegue" {
-            guard let detailVC = segue.destination as? LoginViewController else { return }
-            detailVC.restaurantController = restaurantController
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "SignupSegue" {
+//            guard let detailVC = segue.destination as? LoginViewController else { return }
+//            detailVC.restaurantController = restaurantController
+//        }
+//    }
 
 }

@@ -9,15 +9,23 @@
 import Foundation
 struct  User: Codable, Equatable {
     let userID: Int?
-    let username: String?
-    let password: String?
+    let username: String
+    let password: String
+    let email: String?
     let token: String?
     
     enum CodingKeys: String, CodingKey {
         case userID = "userid"
         case username
         case password
+        case email
         case token
     }
+}
+
+struct UserLogin: Codable, Equatable{
+    let username: String
+    let password: String
+    
 }
 
